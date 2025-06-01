@@ -1,19 +1,21 @@
 from flask import Flask
-from models import __all__  # Importas los modelos para que SQLAlchemy los registre
-from database import db_handler
+from config.settings import Config
+from database import db, init_app
+from api.routes import all_blueprints
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.settings.Config')
+    app.config.from_object(Config)
 
-    db_handler.init_app(app)
+    # Inicializar base de datos y migraciones
+    init_app(app)
 
-    with app.app_context():
-        db_handler.create_tables()
+    # Registrar blueprints
+    for bp in all_blueprints:
+        app.register_blueprint(bp)
 
     return app
 
 if __name__ == '__main__':
     app = create_app()
     app.run(debug=True)
-

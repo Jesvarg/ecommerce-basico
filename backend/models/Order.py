@@ -1,4 +1,3 @@
-from datetime import datetime
 from database import db
 
 class Order(db.Model):
@@ -8,7 +7,7 @@ class Order(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     total = db.Column(db.Float, nullable=False)
     status = db.Column(db.String(50), nullable=False)
-    order_date = db.Column(db.DateTime, default=datetime.utcnow)
+    order_date = db.Column(db.DateTime, default=db.func.now())
     shipping_address = db.Column(db.String(255), nullable=False)
     payment_method = db.Column(db.String(100), nullable=False)
 

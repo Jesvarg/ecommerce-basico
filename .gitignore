@@ -1,0 +1,32 @@
+# Ignorar archivos compilados de Python
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar la carpeta de entorno virtual
+venv/
+__pycache__/
+
+# Ignorar archivos de configuración y credenciales
+.env
+*.env
+config.json
+instance/
+
+# Ignorar bases de datos SQLite
+*.db
+*.sqlite
+
+# Ignorar migraciones automáticas de Flask-Migrate
+migrations/
+
+# Ignorar logs y archivos temporales
+logs/
+*.log
+tmp/
+*.tmp
+
+# Ignorar datos sensibles de seguridad o tokenización
+jwt_secret.key
+*.pem
+*.crt
