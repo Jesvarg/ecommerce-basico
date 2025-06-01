@@ -30,3 +30,7 @@ tmp/
 jwt_secret.key
 *.pem
 *.crt
+
+# Ignorar archivos de configuración y credenciales
+.env
+*.env
