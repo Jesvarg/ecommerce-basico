@@ -13,13 +13,6 @@ def register_user():
     for field in required_fields:
         if field not in data:
             return jsonify({"error": f"Falta el campo '{field}'"}), 400
-
-    if not is_valid_email(data['email']):
-        return jsonify({"error": "Email inválido"}), 400
-    
-    if not is_strong_password(data['password']):
-        return jsonify({"error": "La contraseña es demasiado débil"}), 400
-
     try:
         user = create_user(
             first_name=data['first_name'],

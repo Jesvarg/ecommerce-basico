@@ -1,3 +1,4 @@
+from utils.validators import validate_order_items
 from database import db
 
 class OrderItem(db.Model):
@@ -13,5 +14,13 @@ class OrderItem(db.Model):
     order = db.relationship('Order', back_populates='order_items')
     product = db.relationship('Product')
 
+    def __init__(self, **kwargs):
+        validate_order_items([kwargs])
+
+        if 'subtotal' not in kwargs and 'price_at_purchase' in kwargs and 'quantity' in kwargs:
+            kwargs['subtotal'] = kwargs['price_at_purchase'] * kwargs['quantity']
+
+        super().__init__(**kwargs)
+    
     def __repr__(self):
         return f'<OrderItem Order:{self.order_id} Product:{self.product_id} Qty:{self.quantity}>'
