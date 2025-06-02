@@ -15,8 +15,22 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
-    images = db.relationship('ProductImage', backref='product', lazy=True, cascade='all, delete-orphan')
+    images = db.relationship('ProductImage', back_populates='product', lazy=True, cascade='all, delete-orphan')
+    category = db.relationship('Category', back_populates='products')
 
+    def check_stock(self, quantity):
+        if quantity > self.stock:
+            raise ValueError(f"Stock insuficiente. Disponible: {self.stock}")
+        return True
+    
+    def update_stock(self, quantity, operation='decrease'):
+        if operation == 'decrease':
+            if quantity > self.stock:
+                raise ValueError(f"Stock insuficiente. Disponible: {self.stock}")
+            self.stock -= quantity
+        else:
+            self.stock += quantity
+            
     def __init__(self, **kwargs):
         validate_product_data(kwargs)
         super().__init__(**kwargs)

@@ -9,6 +9,8 @@ class ProductImage(db.Model):
     url = db.Column(db.String(255), nullable=False)
     is_primary = db.Column(db.Boolean, default=False)
 
+    product = db.relationship('Product', back_populates='images')
+
     def __init__(self, **kwargs):
         if not is_valid_image_url(kwargs.get("url")):
             raise ValueError("La URL o nombre de archivo de imagen es inválido")

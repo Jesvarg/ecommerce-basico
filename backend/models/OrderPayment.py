@@ -13,7 +13,7 @@ class OrderPayment(db.Model):
     status = db.Column(db.String(50), nullable=False)
     paid_at = db.Column(db.DateTime, default=db.func.now())
 
-    order = db.relationship('Order', backref=db.backref('transaction', uselist=False))
+    order = db.relationship('Order', back_populates='transaction')
 
     def __init__(self, **kwargs):
         validate_order_payment(kwargs)

@@ -16,6 +16,9 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
+    orders = db.relationship('Order', back_populates='user', lazy=True)
+    cart = db.relationship('ShoppingCart', back_populates='user', uselist=False)
+
     def __init__(self, **kwargs):
         self.validate_first_name(kwargs.get('first_name'))
         self.validate_last_name(kwargs.get('last_name'))

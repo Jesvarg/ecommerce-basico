@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
@@ -17,6 +19,9 @@ class Config:
     # Base de datos
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", f"sqlite:///{os.path.join(INSTANCE_PATH, 'app.db')}")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Opciones de pago
+    PAYMENT_METHODS = {'stripe'}
 
     # Seguridad
     SESSION_COOKIE_HTTPONLY = True
